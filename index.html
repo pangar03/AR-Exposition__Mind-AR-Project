@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+        <link rel="stylesheet" href="./styles.css" />
+        <title>Exposición en AR</title>
+    </head>
+    <body>
+        <section id="on-boarding">
+            <div class="intro-header">
+                <h1>Bienvenido a esta exposición en Realidad Aumentada</h1>
+                <p>
+                    A continuación, podrás explorar la sala e interactuar con
+                    las obras. Sólo deberás aceptar la solicitud de permiso para
+                    acceder a la cámara, apuntar tu celular a las obras y
+                    disfrutar de la exposición.
+                </p>
+                <p>Haz click en continuar para iniciar</p>
+                <button id="start-button">Continuar</button>
+            </div>
+        </section>
+        <a-scene
+            mindar-image="imageTargetSrc: ./targets/targets.mind;
+                filterMinCF: 0.0001;
+                filterBeta: 0.001;"
+            color-space="sRGB"
+            renderer="colorManagement: true, physicallyCorrectLights"
+            vr-mode-ui="enabled: false"
+            device-orientation-permission-ui="enabled: false"
+            id="ar-scene"
+        >
+            <!-- Cargar assets (videos) -->
+            <a-assets>
+                <video
+                    id="video1"
+                    src="./Assets/Ayo Angaipoa.mp4"
+                    loop
+                    muted
+                    playsinline
+                    webkit-playsinline
+                    crossorigin="anonymous"
+                ></video>
+            </a-assets>
+
+            <!-- AR Camera -->
+            <a-camera
+                position="0 0 0"
+                look-controls="enabled: false"
+            ></a-camera>
+
+            <!-- Markers setup -->
+            <a-entity mindar-image-target="targetIndex: 0" id="marker1">
+                <a-video
+                    id="videoElement1"
+                    src="#video1"
+                    position="0 0 0"
+                    width="1"
+                    height="0.68"
+                ></a-video>
+            </a-entity>
+        </a-scene>
+    </body>
+    <footer>
+        <script>
+            console.log("🔹 DOM fully loaded and parsed");
+            const startButton = document.getElementById("start-button");
+            const onBoardingSection = document.getElementById("on-boarding");
+
+            const videos = document.querySelectorAll("video");
+
+            startButton.addEventListener("click", function () {
+                console.log(
+                    "🔹 Start button clicked, requesting camera access...",
+                );
+                // Hide the onboarding section and start the AR experience
+                onBoardingSection.style.display = "none";
+                console.log(
+                    "🔹 Onboarding section hidden, starting AR experience...",
+                );
+            });
+
+            // Setup video events for each marker and video
+            const setupVideoEvents = (markerId, videoId) => {
+                const video = document.getElementById(videoId);
+                const marker = document.getElementById(markerId);
+
+                marker.addEventListener("targetFound", () => {
+                    console.log(
+                        `🔹 Marcador ${markerId} detectado, reproduciendo ${videoId}...`,
+                    );
+                    video.muted = false; // Unmute the video when the marker is found
+                    video
+                        .play()
+                        .catch((error) =>
+                            console.log(
+                                `⚠️ Error al reproducir ${videoId}:`,
+                                error,
+                            ),
+                        );
+                });
+
+                marker.addEventListener("targetLost", () => {
+                    console.log(
+                        `🔹 Marcador ${markerId} perdido, pausando ${videoId}...`,
+                    );
+                    video.pause();
+                });
+            };
+
+            // Setup video events for each marker and video
+            setupVideoEvents("marker1", "video1");
+        </script>
+    </footer>
+</html>
