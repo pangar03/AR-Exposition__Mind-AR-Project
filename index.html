@@ -73,6 +73,60 @@
                     webkit-playsinline
                     crossorigin="anonymous"
                 ></audio>
+                <img
+                    id="image3"
+                    src="./Assets/Camino hacia un lugar de imprecisiones  - Laura Campaz.jpg"
+                    crossorigin="anonymous"
+                    alt='Laura Campaz Camino hacia un lugar de imprecisiones 2De la serie "Raices que nos unen" 2022 Impresión en papel retablado 18 imágenes 40 por 40 centímetros. Colección del artista'
+                />
+                <audio
+                    id="audio3"
+                    src="./Assets/Yemaya, Historia , Rezo y Canto , .mp3"
+                    loop
+                    muted
+                    playsinline
+                    webkit-playsinline
+                    crossorigin="anonymous"
+                ></audio>
+                <video
+                    id="video2"
+                    src="./Assets/Caigi Ayo.mp4"
+                    loop
+                    muted
+                    playsinline
+                    webkit-playsinline
+                    crossorigin="anonymous"
+                ></video>
+                <img
+                    id="image4"
+                    src="./Assets/Ruta 1 Laura Campaz.jpg"
+                    crossorigin="anonymous"
+                    alt="Laura Campaz, Ruta 1, 2016 a 2022. Serie Migraciones. Fotografía digital. 72 por 52 centímetros. Colección del artista."
+                />
+                <audio
+                    id="audio4"
+                    src="./Assets/Prietitud.mp3"
+                    loop
+                    muted
+                    playsinline
+                    webkit-playsinline
+                    crossorigin="anonymous"
+                ></audio>
+                <img
+                    id="image5"
+                    src="./Assets/Ruta 2 Laura Campaz.jpg"
+                    crossorigin="anonymous"
+                    alt="Laura Campaz, Ruta 2, 2016 a 2022. Serie Migraciones. Fotografía digital. 72 por 52 centímetros. Colección del artista."
+                />
+                <audio
+                    id="audio5"
+                    src="./Assets/Quién Los Mató.mp3"
+                    loop
+                    muted
+                    playsinline
+                    webkit-playsinline
+                    crossorigin="anonymous"
+                ></audio>
             </a-assets>
 
             <!-- AR Camera -->
@@ -87,8 +141,8 @@
                     id="videoElement1"
                     src="#video1"
                     position="0 0 0"
-                    width="1"
-                    height="0.68"
+                    width="1.78"
+                    height="1"
                 ></a-video>
             </a-entity>
             <a-entity mindar-image-target="targetIndex: 4" id="marker2">
@@ -97,7 +151,7 @@
                     src="#image1"
                     position="0 0 0"
                     width="1"
-                    height="1.4"
+                    height="1.5"
                 ></a-image>
                 <a-sound
                     id="audioElement1"
@@ -117,6 +171,61 @@
                 <a-sound
                     id="audioElement2"
                     src="#audio2"
+                    autoplay="false"
+                    loop="true"
+                ></a-sound>
+            </a-entity>
+            <a-entity mindar-image-target="targetIndex: 8" id="marker4">
+                <a-image
+                    id="imageElement3"
+                    src="#image3"
+                    position="0 0 0"
+                    width="1"
+                    height="1"
+                ></a-image>
+                <a-sound
+                    id="audioElement3"
+                    src="#audio3"
+                    autoplay="false"
+                    loop="true"
+                ></a-sound>
+            </a-entity>
+            <a-entity mindar-image-target="targetIndex: 1" id="marker5">
+                <a-video
+                    id="videoElement2"
+                    src="#video2"
+                    position="0 0 0"
+                    width="1.78"
+                    height="1"
+                >
+                </a-video>
+            </a-entity>
+            <a-entity mindar-image-target="targetIndex: 5" id="marker6">
+                <a-image
+                    id="imageElement4"
+                    src="#image4"
+                    position="0 0 0"
+                    width="1.6"
+                    height="2"
+                ></a-image>
+                <a-sound
+                    id="audioElement4"
+                    src="#audio4"
+                    autoplay="false"
+                    loop="true"
+                ></a-sound>
+            </a-entity>
+            <a-entity mindar-image-target="targetIndex: 6" id="marker7">
+                <a-image
+                    id="imageElement5"
+                    src="#image5"
+                    position="0 0 0"
+                    width="1.6"
+                    height="2"
+                ></a-image>
+                <a-sound
+                    id="audioElement5"
+                    src="#audio5"
                     autoplay="false"
                     loop="true"
                 ></a-sound>
@@ -172,6 +281,7 @@
 
             // Setup video events for each marker and video
             setupVideoEvents("marker1", "video1");
+            setupVideoEvents("marker5", "video2");
 
             // =================================================================================================
 
@@ -205,6 +315,9 @@
             };
             setupAudioEvents("marker2", "audio1");
             setupAudioEvents("marker3", "audio2");
+            setupAudioEvents("marker4", "audio3");
+            setupAudioEvents("marker6", "audio4");
+            setupAudioEvents("marker7", "audio5");
         </script>
     </footer>
 </html>
