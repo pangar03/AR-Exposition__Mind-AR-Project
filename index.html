@@ -43,6 +43,36 @@
                     webkit-playsinline
                     crossorigin="anonymous"
                 ></video>
+                <img
+                    id="image1"
+                    src="./Assets/Yo no me paro en peligro, Alexandra Idrobo.jpg"
+                    crossorigin="anonymous"
+                    alt="Alexandra Idrobo, Yo no me paro en peligro, 2025. Serie fotográfica impresa sobre tela antifluidos. 67 por 105 centímetros. Colección del artista."
+                />
+                <audio
+                    id="audio1"
+                    src="./Assets/Poema de Hugo Idrobo.mp3"
+                    loop
+                    muted
+                    playsinline
+                    webkit-playsinline
+                    crossorigin="anonymous"
+                ></audio>
+                <img
+                    id="image2"
+                    src="./Assets/Peinilla, Alexandra Idrobo.jpg"
+                    crossorigin="anonymous"
+                    alt="Alexandra Idrobo, Peinilla, 2023. Ilustración digital impresa en tela. 101 por 102 centímetros. Colección del artista."
+                />
+                <audio
+                    id="audio2"
+                    src="./Assets/Cimarrón.mp3"
+                    loop
+                    muted
+                    playsinline
+                    webkit-playsinline
+                    crossorigin="anonymous"
+                ></audio>
             </a-assets>
 
             <!-- AR Camera -->
@@ -60,6 +90,36 @@
                     width="1"
                     height="0.68"
                 ></a-video>
+            </a-entity>
+            <a-entity mindar-image-target="targetIndex: 4" id="marker2">
+                <a-image
+                    id="imageElement1"
+                    src="#image1"
+                    position="0 0 0"
+                    width="1"
+                    height="1.4"
+                ></a-image>
+                <a-sound
+                    id="audioElement1"
+                    src="#audio1"
+                    autoplay="false"
+                    loop="true"
+                ></a-sound>
+            </a-entity>
+            <a-entity mindar-image-target="targetIndex: 2" id="marker3">
+                <a-image
+                    id="imageElement2"
+                    src="#image2"
+                    position="0 0 0"
+                    width="1"
+                    height="1"
+                ></a-image>
+                <a-sound
+                    id="audioElement2"
+                    src="#audio2"
+                    autoplay="false"
+                    loop="true"
+                ></a-sound>
             </a-entity>
         </a-scene>
     </body>
@@ -112,6 +172,39 @@
 
             // Setup video events for each marker and video
             setupVideoEvents("marker1", "video1");
+
+            // =================================================================================================
+
+            // Setup image and audio events
+            const setupAudioEvents = (markerId, audioId) => {
+                const audio = document.getElementById(audioId);
+                const marker = document.getElementById(markerId);
+
+                marker.addEventListener("targetFound", () => {
+                    console.log(
+                        `🔹 Marcador ${markerId} detectado, reproduciendo ${audioId}...`,
+                    );
+                    audio.currentTime = 0; // optional: restart each time it's found
+                    audio.muted = false; // Unmute the audio when the marker is found
+                    audio
+                        .play()
+                        .catch((error) =>
+                            console.log(
+                                `⚠️ Error al reproducir ${audioId}:`,
+                                error,
+                            ),
+                        );
+                });
+
+                marker.addEventListener("targetLost", () => {
+                    console.log(
+                        `🔹 Marcador ${markerId} perdido, pausando ${audioId}...`,
+                    );
+                    audio.pause();
+                });
+            };
+            setupAudioEvents("marker2", "audio1");
+            setupAudioEvents("marker3", "audio2");
         </script>
     </footer>
 </html>
